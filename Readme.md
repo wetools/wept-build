@@ -29,6 +29,7 @@
       }
     })
     ```
+
 ### .buildConfig()
 
 返回所有配置信息合并后对象
@@ -49,7 +50,6 @@
 ### .buildJavascript([option])
 
 * `option.ignore` 可指定为忽略文件路径的正则，默认为 `/node_modules/`
-
 
 ### .rebuild(file, option)
 
