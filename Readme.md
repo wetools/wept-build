@@ -1,5 +1,6 @@
 # wept-build
 
+[![Build Status](https://img.shields.io/travis/wetools/wept-build/master.svg?style=flat-square)](http://travis-ci.org/wetools/wept-build)
 提够构建 WEPT 使用小程序代码的 API，支持 cache 以及根据变化文件自动进行重编译。
 
 ## API
