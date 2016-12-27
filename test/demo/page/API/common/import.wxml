@@ -1,0 +1,4 @@
+<template name="import">
+  <text class="page-header-text">{{title}}</text>
+  <include src="include.wxml"/>
+</template>

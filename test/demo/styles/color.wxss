@@ -1,0 +1,4 @@
+.red {
+  color: #f00;
+  width: 750rpx;
+}
