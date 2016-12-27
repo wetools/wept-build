@@ -1,6 +1,6 @@
 # wept-build
 
-提够构建 WEPT 使用小程序代码的 API，支持 cache 以及按需更新指定文件。
+提够构建 WEPT 使用小程序代码的 API，支持 cache 以及根据变化文件自动进行重编译。
 
 ## API
 
@@ -26,12 +26,6 @@
       }
     })
     ```
-
-### .buildAll()
-
-编译 root 目录下所有小程序文件，返回 promise 或者错误，用于提前编译发现错误
-
-
 ### .buildConfig()
 
 返回所有配置信息合并后对象
@@ -39,8 +33,8 @@
 * 返回为 Promise，回调携带 `app.json` `wept.json` 合并的 config 对象或者错误
 * 返回 config 对象同时携带了所有 page.json 文件内的信息
 
-### builder.buildWxml(path)
-### builder.buildWxss(path)
+### .buildWxml(path)
+### .buildWxss(path)
 
 编译对应页面的 wxml 和 wxss 文件
 
@@ -49,12 +43,12 @@
   * 对于 wxml 返回的是用于插入 html 的 JavaScript 代码字符串
   * 对于 wxss 返回的是用于通过 `deviceWidth` 和 `devicePixelRatio` 生成 css 的函数
 
-### builder.buildJavascript([option])
+### .buildJavascript([option])
 
 * `option.ignore` 可指定为忽略文件路径的正则，默认为 `/node_modules/`
 
 
-### builder.rebuild(file, option)
+### .rebuild(file, option)
 
 更新编译指定 `root` 下指定文件， 仅在使用缓存时有效
 
@@ -62,6 +56,9 @@
 * `option` 为 buildJavascript 使用的 option
 * 返回 Promise
 
+### .buildAll()
+
+编译 root 目录下所有小程序文件，返回 promise 或者错误，用于提前编译 & 发现错误
 
 ## LICENSE
 
