@@ -243,3 +243,35 @@ test('Builder buildAll should build all files', async t => {
   t.truthy(cache.get(path.resolve(root, 'service.js')))
   t.truthy(cache.get(path.resolve(root, 'page/API/index/index.wxml')))
 })
+
+test('Builder should load version', async t => {
+  let obj = await Builder.loadVersion()
+  t.truthy(obj['WAService.js'])
+  t.truthy(obj['WAWebview.js'])
+})
+
+test('Builder should load view script without sourcemap', async t => {
+  let obj = await Builder.getViewScript()
+  t.truthy(obj.content)
+  t.truthy(obj.version)
+})
+
+test('Builder should load view script with sourcemap', async t => {
+  let obj = await Builder.getViewScript({sourceMap: true})
+  t.truthy(obj.content)
+  t.truthy(obj.version)
+  t.true(/sourceMappingURL/.test(obj.content))
+})
+
+test('Builder should load service script without sourcemap', async t => {
+  let obj = await Builder.getServiceScript()
+  t.truthy(obj.content)
+  t.truthy(obj.version)
+})
+
+test('Builder should load service script with sourcemap', async t => {
+  let obj = await Builder.getServiceScript({sourceMap: true})
+  t.truthy(obj.content)
+  t.truthy(obj.version)
+  t.true(/sourceMappingURL/.test(obj.content))
+})

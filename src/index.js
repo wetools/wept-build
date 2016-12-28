@@ -5,6 +5,7 @@ import path from 'path'
 import * as builder from './builder'
 import fs from 'fs'
 import EventEmitter from 'events'
+import {readFile, concatFiles} from './util'
 
 export default class Builder extends EventEmitter {
 
@@ -173,6 +174,48 @@ export default class Builder extends EventEmitter {
       // javascript
       arr.push(this.buildJavascript(option))
       return Promise.all(arr)
+    })
+  }
+
+  static loadVersion() {
+    return readFile(path.resolve(__dirname, '../static/version.json')).then(content => {
+      try {
+        var obj = JSON.parse(content)
+        return obj
+      } catch(e) {
+        console.error(e.stack)
+        return Promise.reject(e)
+      }
+    })
+  }
+
+  static getViewScript(opt = {}) {
+    return Builder.loadVersion().then(obj => {
+      let paths = [
+        path.resolve(__dirname, '../static/jweixindebug.js'),
+        path.resolve(__dirname, '../static/WAWebview.js')
+      ]
+      return concatFiles(paths, opt.sourceMap, 'view.js').then(content => {
+        return {
+          content: content,
+          version: obj['WAWebview.js']
+        }
+      })
+    })
+  }
+
+  static getServiceScript(opt = {}) {
+    return Builder.loadVersion().then(obj => {
+      let paths = [
+        path.resolve(__dirname, '../static/asdebug.js'),
+        path.resolve(__dirname, '../static/WAService.js')
+      ]
+      return concatFiles(paths, opt.sourceMap, 'service.js').then(content => {
+        return {
+          content: content,
+          version: obj['WAService.js']
+        }
+      })
     })
   }
 }

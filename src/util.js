@@ -1,3 +1,4 @@
+import convert from 'convert-source-map'
 import Concat from 'concat-with-sourcemaps'
 import babel from 'babel-core'
 import Parallel from 'node-parallel'
@@ -28,6 +29,31 @@ export function readFile(p, root) {
       } else {
         reject(new Error(`file ${p} not found`))
       }
+    })
+  })
+}
+
+export function concatFiles(paths, sourceMap, name) {
+  const p = new Parallel()
+  for (let f of paths) {
+    p.add(done => {
+      readFile(f, '').then(c => {
+        done(null, c)
+      }, done)
+    })
+  }
+  return new Promise((resolve, reject) => {
+    p.done((err, results) => {
+      if (err) return reject(err)
+      if (!sourceMap) {
+        return resolve(results.join('\n'))
+      }
+      let concat = new Concat(true, name, '\n')
+      results.forEach((c, i) => {
+        concat.add(paths[i], c)
+      })
+      let str = concat.content + "\n" + convert.fromJSON(concat.sourceMap).toComment()
+      resolve(str)
     })
   })
 }

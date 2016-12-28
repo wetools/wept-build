@@ -63,6 +63,20 @@
 
 编译 root 目录下所有小程序文件，返回 promise 或者错误，用于提前编译 & 发现错误
 
+### Builder.getViewScript([option])
+### Builder.getServiceScript([option])
+
+获取 view 层和 service 层小程序底层代码，返回 content 和 verion，例如：
+
+``` js
+{
+  content: '...' // script content
+  version: '2016122200'
+}
+```
+
+* `option.sourceMap` 启用后开启 source map 支持。
+
 ## LICENSE
 
 Copyright 2016 chemzqm@gmail.com
