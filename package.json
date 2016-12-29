@@ -1,6 +1,6 @@
 {
   "name": "wept-build",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "builder for weapp",
   "main": "index.js",
   "scripts": {
