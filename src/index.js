@@ -189,6 +189,14 @@ export default class Builder extends EventEmitter {
     })
   }
 
+  /**
+   * Get script used for view page
+   *
+   * @public
+   * @static
+   * @param {Object} [opt={}] - set sourceMap to true for sourceMap support
+   * @returns {Object} - content of javascript and version
+   */
   static getViewScript(opt = {}) {
     return Builder.loadVersion().then(obj => {
       let paths = [
@@ -204,6 +212,14 @@ export default class Builder extends EventEmitter {
     })
   }
 
+  /**
+   * Get script for service page
+   *
+   * @public
+   * @static
+   * @param {Object} [opt={}] - set sourceMap to true for sourceMap support
+   * @returns {Object} - content of javascript and version
+   */
   static getServiceScript(opt = {}) {
     return Builder.loadVersion().then(obj => {
       let paths = [
